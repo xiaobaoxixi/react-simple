@@ -5,29 +5,22 @@ import AddTask from "./addTask.js";
 export class App extends Component {
   state = {
     entries: [
-      { task: "task1", importance: 0, doneStatus: false },
-      { task: "task2", importance: 0, doneStatus: false },
-      { task: "task3", importance: 0, doneStatus: false }
+      { task: "task1", importance: 1, doneStatus: false },
+      { task: "task2", importance: 1, doneStatus: false },
+      { task: "task3", importance: 1, doneStatus: false }
     ]
   };
-  addNew = e => {
-    e.preventDefault();
-
+  addNew = newTask => {
     this.setState({
-      entries: this.state.entries.concat({
-        task: "task4",
-        importance: 1,
-        done: true
-      })
+      entries: this.state.entries.concat(newTask)
     });
-    console.log(this.state.entries);
   };
   render() {
     return (
       <div>
         <h1>to - do -list</h1>
-        <ToDoList entries={this.state.entries} />
         <AddTask addNew={this.addNew} />
+        <ToDoList entries={this.state.entries} />
       </div>
     );
   }

@@ -1,16 +1,23 @@
 import React, { Component } from "react";
 
 export class ToDoItem extends Component {
-  markDone = e => {
-    console.log("mark");
+  state = {
+    done: this.props.entry.doneStatus
+  };
+  toggleDone = e => {
+    this.setState({
+      done: !this.state.done
+    });
   };
   render() {
     return (
-      <li>
+      <li className={this.state.done === true ? "done" : ""}>
         <p>{this.props.entry.task}</p>
         <p>importance: {this.props.entry.importance}</p>
         <p>-</p>
-        <button onClick={this.markDone}>mark done</button>
+        <button onClick={this.toggleDone}>
+          {this.state.done === true ? "not done yet" : "mark done"}
+        </button>
       </li>
     );
   }

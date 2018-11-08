@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./App.css";
 import ToDoList from "./TodoList.js";
 import AddTask from "./addTask.js";
 

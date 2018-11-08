@@ -19,13 +19,20 @@ export class AddTask extends Component {
   addToList = e => {
     e.preventDefault();
     this.props.addNew(this.state);
-    console.log(this.state);
+    this.clearForm();
   };
+  clearForm() {
+    this.setState({
+      task: "",
+      importance: 1,
+      done: false
+    });
+  }
   render() {
     return (
       <form>
-        <textarea onInput={this.setTask} />
-        <select onChange={this.setImportance}>
+        <textarea onInput={this.setTask} value={this.state.task} />
+        <select onChange={this.setImportance} value={this.state.importance}>
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>

@@ -7,6 +7,7 @@ export class ToDoItem extends Component {
         <p>{this.props.entry.task}</p>
         <p>importance: {this.props.entry.importance}</p>
         <p>-</p>
+        <button>mark done</button>
       </div>
     );
   }

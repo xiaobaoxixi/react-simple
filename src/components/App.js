@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "./App.css";
 import ToDoList from "./TodoList.js";
 import AddTask from "./addTask.js";
-import { write } from "fs";
 
 export class App extends Component {
   state = {
@@ -12,26 +11,38 @@ export class App extends Component {
     this.setState({
       entries: this.state.entries.concat(newTaskContent)
     });
-    this.writeToAPI(newTaskContent);
+    this.addToAPI(newTaskContent);
   };
-  writeToAPI = update => {
+  addToAPI = newContent => {
     // write to mockAPI
     fetch(`http://5be5595c48c1280013fc3d34.mockapi.io/react-toDoList`, {
       method: "post",
-      body: JSON.stringify(update),
+      body: JSON.stringify(newContent),
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
       }
-    })
-      .then(data => data.json())
-      .then(d => {
-        console.log("to the cloud");
-      });
+    });
   };
-  markDone = key => {
+  updateAPI = (newState, uid) => {
+    console.log(newState);
+    const updatedEntry = newState.filter(entry => entry.uid === uid);
+    console.log(updatedEntry);
+    const id = updatedEntry[0].id;
+    if (updatedEntry.length > 0) {
+      fetch(`http://5be5595c48c1280013fc3d34.mockapi.io/react-toDoList/${id}`, {
+        method: "put",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        body: JSON.stringify(updatedEntry[0])
+      });
+    }
+  };
+
+  markDone = (id, uid) => {
     const newState = this.state.entries.map(entry => {
-      if (entry.id === key) {
+      if (entry.id === id) {
         const copy = Object.assign({}, entry, {
           done: !entry.done
         });
@@ -43,7 +54,7 @@ export class App extends Component {
     this.setState({
       entries: newState
     });
-    this.writeToAPI(newState);
+    this.updateAPI(newState, uid);
   };
   componentDidMount() {
     fetch("http://5be5595c48c1280013fc3d34.mockapi.io/react-toDoList")

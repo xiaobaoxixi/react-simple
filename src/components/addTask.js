@@ -27,7 +27,7 @@ export class AddTask extends Component {
     e.preventDefault();
     if (this.state.task !== "") {
       this.props.addNew({
-        id: uuidv4(),
+        uid: uuidv4(),
         task: this.state.task,
         importance: this.state.importance,
         done: false
@@ -37,6 +37,7 @@ export class AddTask extends Component {
   };
   clearForm() {
     this.setState({
+      uid: "",
       task: "",
       importance: 1,
       done: false

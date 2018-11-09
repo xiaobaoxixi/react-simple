@@ -6,7 +6,12 @@ export class ToDoList extends Component {
   render() {
     const allEntriesToEle = this.props.entries.map(entry => {
       return (
-        <ToDoItem entry={entry} markDone={this.props.markDone} key={entry.id} />
+        <ToDoItem
+          entry={entry}
+          markDone={this.props.markDone}
+          key={entry.uid}
+          state={entry.done}
+        />
       );
     });
     return <ul>{allEntriesToEle}</ul>;

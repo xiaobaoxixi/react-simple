@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import ToDoList from "./TodoList.js";
 import AddTask from "./addTask.js";
+import { write } from "fs";
 
 export class App extends Component {
   state = {
@@ -11,10 +12,13 @@ export class App extends Component {
     this.setState({
       entries: this.state.entries.concat(newTaskContent)
     });
+    this.writeToAPI(newTaskContent);
+  };
+  writeToAPI = update => {
     // write to mockAPI
     fetch(`http://5be5595c48c1280013fc3d34.mockapi.io/react-toDoList`, {
       method: "post",
-      body: JSON.stringify(newTaskContent),
+      body: JSON.stringify(update),
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
@@ -22,7 +26,7 @@ export class App extends Component {
     })
       .then(data => data.json())
       .then(d => {
-        console.log("uploaded");
+        console.log("to the cloud");
       });
   };
   markDone = key => {
@@ -39,6 +43,7 @@ export class App extends Component {
     this.setState({
       entries: newState
     });
+    this.writeToAPI(newState);
   };
   componentDidMount() {
     fetch("http://5be5595c48c1280013fc3d34.mockapi.io/react-toDoList")

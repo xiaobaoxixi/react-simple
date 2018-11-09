@@ -11,6 +11,19 @@ export class App extends Component {
     this.setState({
       entries: this.state.entries.concat(newTaskContent)
     });
+    // write to mockAPI
+    fetch(`http://5be5595c48c1280013fc3d34.mockapi.io/react-toDoList`, {
+      method: "post",
+      body: JSON.stringify(newTaskContent),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    })
+      .then(data => data.json())
+      .then(d => {
+        console.log("uploaded");
+      });
   };
   markDone = key => {
     const newState = this.state.entries.map(entry => {

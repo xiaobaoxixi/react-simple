@@ -18,8 +18,6 @@ export class App extends Component {
         const copy = Object.assign({}, entry, {
           done: !entry.done
         });
-
-        //console.log(this.state.entries);
         return copy;
       } else {
         return entry;

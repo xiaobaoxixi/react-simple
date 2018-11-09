@@ -53,7 +53,7 @@ export class AddTask extends Component {
           <option value="4">4</option>
           <option value="5">5</option>
         </select>
-        <button onClick={this.addToList}>add</button>
+        <button onClick={this.addToList}>add task</button>
       </form>
     );
   }

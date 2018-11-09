@@ -16,7 +16,7 @@ li {
   margin-bottom: 10px;
 }
 .done {
-  background-color: #eee;
+  background-color: #efefef;
 }
 .done *:not(button) {
   text-decoration: line-through;

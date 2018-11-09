@@ -8,7 +8,7 @@ export class ToDoItem extends Component {
     this.setState({
       done: !this.state.done
     });
-    this.props.markDone();
+    this.props.markDone(this.props.index);
   };
   render() {
     return (

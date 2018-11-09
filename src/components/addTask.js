@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 
+// use a existing Unique key pakage
+import uuidv4 from "uuid/v4";
+
 export class AddTask extends Component {
   state = {
+    id: "",
     task: "",
     importance: 1,
     done: false
@@ -15,11 +19,19 @@ export class AddTask extends Component {
     this.setState({
       task: e.target.value
     });
+    this.setState({
+      index: this.props.index
+    });
   };
   addToList = e => {
     e.preventDefault();
     if (this.state.task !== "") {
-      this.props.addNew(this.state);
+      this.props.addNew({
+        id: uuidv4(),
+        task: this.state.task,
+        importance: this.state.importance,
+        done: false
+      });
       this.clearForm();
     }
   };

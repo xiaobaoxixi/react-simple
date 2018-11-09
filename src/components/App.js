@@ -28,7 +28,7 @@ export class App extends Component {
     });
   };
   render() {
-    const sorted = this.state.entries.sort(function(a, b) {
+    const sorted = this.state.entries.slice().sort(function(a, b) {
       if (a.done && !b.done) {
         return 1;
       } else if ((a.done && b.done) || (!a.done && !b.done)) {
@@ -41,7 +41,7 @@ export class App extends Component {
       <div>
         <h1>to - do -list</h1>
         <AddTask addNew={this.addNew} />
-        <ToDoList entries={this.state.entries} markDone={this.markDone} />
+        <ToDoList entries={sorted} markDone={this.markDone} />
       </div>
     );
   }

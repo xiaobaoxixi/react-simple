@@ -27,6 +27,15 @@ export class App extends Component {
       entries: newState
     });
   };
+  componentDidMount() {
+    fetch("http://5be5595c48c1280013fc3d34.mockapi.io/react-toDoList")
+      .then(data => data.json())
+      .then(list => {
+        this.setState({
+          entries: list
+        });
+      });
+  }
   render() {
     const sorted = this.state.entries.slice().sort(function(a, b) {
       if (a.done && !b.done) {

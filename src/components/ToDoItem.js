@@ -12,10 +12,7 @@ export class ToDoItem extends Component {
   };
   render() {
     return (
-      <li
-        className={this.state.done === true ? "done" : ""}
-        functions={this.props.markDone}
-      >
+      <li className={this.state.done === true ? "done" : ""}>
         <p>{this.props.entry.task}</p>
         <p>importance: {this.props.entry.importance}</p>
         <button onClick={this.toggleDone}>

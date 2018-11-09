@@ -33,7 +33,7 @@ export class AddTask extends Component {
   render() {
     return (
       <form>
-        <textarea onInput={this.setTask} value={this.state.task} />
+        <textarea onChange={this.setTask} value={this.state.task} />
         <select onChange={this.setImportance} value={this.state.importance}>
           <option value="1">1</option>
           <option value="2">2</option>

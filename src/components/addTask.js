@@ -18,8 +18,10 @@ export class AddTask extends Component {
   };
   addToList = e => {
     e.preventDefault();
-    this.props.addNew(this.state);
-    this.clearForm();
+    if (this.state.task !== "") {
+      this.props.addNew(this.state);
+      this.clearForm();
+    }
   };
   clearForm() {
     this.setState({

@@ -4,14 +4,9 @@ import ToDoItem from "./ToDoItem";
 
 export class ToDoList extends Component {
   render() {
-    const allEntriesToEle = this.props.entries.map((entry, i) => {
+    const allEntriesToEle = this.props.entries.map(entry => {
       return (
-        <ToDoItem
-          entry={entry}
-          index={i}
-          markDone={this.props.markDone}
-          key={entry.id}
-        />
+        <ToDoItem entry={entry} markDone={this.props.markDone} key={entry.id} />
       );
     });
     return <ul>{allEntriesToEle}</ul>;

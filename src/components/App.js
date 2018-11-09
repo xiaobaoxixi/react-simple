@@ -13,8 +13,14 @@ export class App extends Component {
       entries: this.state.entries.concat(newTaskContent)
     });
   };
-  markDone = index => {
-    console.log("mark to parent");
+  markDone = key => {
+    const allEntry = this.state.entries.map(entry => {
+      if (entry.id === key) {
+        entry.done = !entry.done;
+      }
+    });
+
+    console.log("mark to parent", key);
   };
   render() {
     const currentMax = 0;

@@ -8,15 +8,20 @@ export class ToDoItem extends Component {
     this.setState({
       done: !this.state.done
     });
-    console.log(this.props.index);
+    this.props.markDone();
   };
   render() {
     return (
-      <li className={this.state.done === true ? "done" : ""}>
+      <li
+        className={this.state.done === true ? "done" : ""}
+        functions={this.props.markDone}
+      >
         <p>{this.props.entry.task}</p>
         <p>importance: {this.props.entry.importance}</p>
         <button onClick={this.toggleDone}>
-          {this.state.done === true ? "not done yet" : "mark done"}
+          {this.state.done === true
+            ? "ooops, not done yet"
+            : "oyeah~ this is done"}
         </button>
       </li>
     );

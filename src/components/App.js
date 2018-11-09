@@ -11,17 +11,20 @@ export class App extends Component {
       { task: "task3", importance: 1, doneStatus: false }
     ]
   };
-  addNew = newTask => {
+  addNew = newTaskContent => {
     this.setState({
-      entries: this.state.entries.concat(newTask)
+      entries: this.state.entries.concat(newTaskContent)
     });
+  };
+  markDone = markDone => {
+    console.log("mark to parent");
   };
   render() {
     return (
       <div>
         <h1>to - do -list</h1>
         <AddTask addNew={this.addNew} />
-        <ToDoList entries={this.state.entries} />
+        <ToDoList entries={this.state.entries} markDone={this.markDone} />
       </div>
     );
   }

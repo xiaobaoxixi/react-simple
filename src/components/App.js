@@ -8,26 +8,41 @@ export class App extends Component {
     entries: []
   };
   addNew = newTaskContent => {
-    console.log(newTaskContent);
     this.setState({
       entries: this.state.entries.concat(newTaskContent)
     });
   };
   markDone = key => {
-    const allEntry = this.state.entries.map(entry => {
+    const newState = this.state.entries.map(entry => {
       if (entry.id === key) {
-        entry.done = !entry.done;
+        const copy = Object.assign({}, entry, {
+          done: !entry.done
+        });
+
+        //console.log(this.state.entries);
+        return copy;
+      } else {
+        return entry;
       }
     });
-
-    console.log("mark to parent", key);
+    this.setState({
+      entries: newState
+    });
   };
   render() {
-    const currentMax = 0;
+    const sorted = this.state.entries.sort(function(a, b) {
+      if (a.done && !b.done) {
+        return 1;
+      } else if ((a.done && b.done) || (!a.done && !b.done)) {
+        return 0;
+      } else {
+        return -1;
+      }
+    });
     return (
       <div>
         <h1>to - do -list</h1>
-        <AddTask addNew={this.addNew} currentMax={currentMax} />
+        <AddTask addNew={this.addNew} />
         <ToDoList entries={this.state.entries} markDone={this.markDone} />
       </div>
     );

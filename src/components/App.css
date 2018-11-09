@@ -1,11 +1,16 @@
 * {
   position: relative;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 body {
-  padding: 30px;
+  padding: 3%;
 }
 form > * {
   padding: 10px;
+  width: 100%;
+  margin: 0;
   display: block;
   margin-bottom: 10px;
 }
@@ -23,4 +28,11 @@ li {
 }
 .done *:not(button) {
   text-decoration: line-through;
+}
+textarea,
+input[type="range"] {
+  width: 100%;
+}
+label {
+  text-align: center;
 }

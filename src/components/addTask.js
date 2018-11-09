@@ -47,13 +47,18 @@ export class AddTask extends Component {
     return (
       <form>
         <textarea onChange={this.setTask} value={this.state.task} />
-        <select onChange={this.setImportance} value={this.state.importance}>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </select>
+        <label>
+          Probably should do it ---> Important!!!
+          <input
+            type="range"
+            id="importance"
+            name="importance"
+            min="1"
+            max="7"
+            value={this.state.importance}
+            onChange={this.setImportance}
+          />
+        </label>
         <button onClick={this.addToList}>add task</button>
       </form>
     );

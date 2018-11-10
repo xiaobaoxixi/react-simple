@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import ToDoList from "./TodoList.js";
-import AddTask from "./addTask.js";
+import AddTask from "./AddTask.js";
 
 export class App extends Component {
   state = {

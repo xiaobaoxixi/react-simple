@@ -122,20 +122,26 @@ export class App extends Component {
     });
   };
   render() {
-    const sorted = this.state.entries.slice().sort(function(a, b) {
-      if (a.done && !b.done) {
-        return 1;
-      } else if ((a.done && b.done) || (!a.done && !b.done)) {
-        return 0;
-      } else {
-        return -1;
-      }
-    });
+    const doneS = this.state.entries.filter(entry => entry.done === true);
+    const undoneS = this.state.entries
+      .filter(entry => entry.done === false)
+      .slice()
+      .sort(function(a, b) {
+        return b.importance - a.importance;
+        // if (a.done && !b.done) {
+        //   return 1;
+        // } else if ((a.done && b.done) || (!a.done && !b.done)) {
+        //   return 0;
+        // } else {
+        //   return -1;
+        // }
+      });
+    const newOrder = undoneS.concat(doneS);
     return (
       <div>
         <h1>Free Up Your Mind</h1>
         <AddTask addNew={this.addNew} />
-        <ToDoList entries={sorted} markDone={this.markDone} />
+        <ToDoList entries={newOrder} markDone={this.markDone} />
         <button className="half-width" onClick={this.clearAllDone}>
           hide <br />
           the finished

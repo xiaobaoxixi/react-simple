@@ -5,9 +5,9 @@ import "./TodoList.css";
 export class ToDoList extends Component {
   render() {
     const allEntriesToEle = this.props.entries
-      .sort(function(a, b) {
-        return b.importance - a.importance;
-      })
+      // .sort(function(a, b) {
+      //   return b.importance - a.importance;
+      // })
       .map(entry => {
         return (
           <ToDoItem

@@ -72,6 +72,9 @@ export class App extends Component {
       entries: newState
     });
   };
+  deleteAllDone = e => {
+    console.log("detele all done");
+  };
   render() {
     const sorted = this.state.entries.slice().sort(function(a, b) {
       if (a.done && !b.done) {
@@ -84,10 +87,11 @@ export class App extends Component {
     });
     return (
       <div>
-        <h1>to - do -list</h1>
+        <h1>Free Up Your Mind</h1>
         <AddTask addNew={this.addNew} />
-        <button onClick={this.clearAllDone}>clear all done</button>
         <ToDoList entries={sorted} markDone={this.markDone} />
+        <button onClick={this.clearAllDone}>hide the done</button>
+        <button onClick={this.deleteAllDone}>delete the done</button>
       </div>
     );
   }

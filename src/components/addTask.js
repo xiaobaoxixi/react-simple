@@ -46,20 +46,22 @@ export class AddTask extends Component {
   render() {
     return (
       <form>
-        <textarea onChange={this.setTask} value={this.state.task} />
-        <label>
-          Probably should do it ---> Important!!!
-          <input
-            type="range"
-            id="importance"
-            name="importance"
-            min="1"
-            max="7"
-            value={this.state.importance}
-            onChange={this.setImportance}
-          />
-        </label>
-        <button onClick={this.addToList}>add task</button>
+        <textarea
+          onChange={this.setTask}
+          value={this.state.task}
+          placeholder="..."
+        />
+        <label>Probably should do it ---> Must do!!!</label>
+        <input
+          type="range"
+          id="importance"
+          name="importance"
+          min="1"
+          max="7"
+          value={this.state.importance}
+          onChange={this.setImportance}
+        />
+        <button onClick={this.addToList}>to the cloud</button>
       </form>
     );
   }

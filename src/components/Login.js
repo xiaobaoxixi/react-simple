@@ -9,6 +9,7 @@ export class Login extends Component {
     password: []
   };
   trackPassword = e => {
+    console.log(e.target.dataset.code);
     let passwordSofar = this.state.password;
     passwordSofar.push(e.target.dataset.code);
     if (passwordSofar.toString() === "5,5,7,1") {

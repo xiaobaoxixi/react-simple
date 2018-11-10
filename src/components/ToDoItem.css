@@ -1,0 +1,22 @@
+.imp {
+  height: 20px;
+  width: 20px;
+  margin-top: 2.5px; /* line height is 25, move the imp dot a bit lower */
+  border-radius: 10px;
+  background: var(--green);
+  border: none;
+  position: absolute;
+}
+.normal {
+  background: var(--yellow);
+}
+.important {
+  background: var(--red);
+}
+.task::first-letter {
+  margin-left: 30px;
+}
+/* .markDoneButton {
+  height: 3px;
+  padding: 0;
+} */

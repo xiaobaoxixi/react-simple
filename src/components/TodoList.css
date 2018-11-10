@@ -3,9 +3,10 @@ ul {
   list-style: none;
 }
 li {
-  background-color: lightgrey;
+  border-left: 1px solid lightgray;
   padding: 10px;
   margin-bottom: 10px;
+  line-height: 25px;
 }
 .done {
   background-color: #efefef;

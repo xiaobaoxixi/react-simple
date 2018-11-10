@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import "./ToDoItem.css";
 export class ToDoItem extends Component {
   state = {
     done: this.props.entry.doneStatus
@@ -12,14 +12,25 @@ export class ToDoItem extends Component {
   };
   render() {
     return (
-      <li className={this.props.state === true ? "done" : ""}>
-        <p>{this.props.entry.task}</p>
-        <p>importance: {this.props.entry.importance}</p>
-        <button onClick={this.toggleDone}>
+      <li
+        className={this.props.state === true ? "done" : ""}
+        onClick={this.toggleDone}
+      >
+        <div
+          className={
+            this.props.entry.importance < 3
+              ? "imp"
+              : this.props.entry.importance < 6
+              ? "imp normal"
+              : "imp important"
+          }
+        />
+        <p className="task">{this.props.entry.task}</p>
+        {/* <button className="markDoneButton" onClick={this.toggleDone}>
           {this.state.done === true
             ? "ooops, not done yet"
             : "oyeah~ this is done"}
-        </button>
+        </button> */}
       </li>
     );
   }

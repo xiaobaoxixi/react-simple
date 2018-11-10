@@ -52,15 +52,15 @@ input[type="range"]::-webkit-slider-thumb {
   height: 32px;
   width: 32px;
   border-radius: 38px;
-  background: rgb(24, 160, 76);
+  background: var(--green);
   cursor: pointer;
   margin-top: -14px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
 }
 input[type="range"].normal::-webkit-slider-thumb {
-  background: rgb(236, 236, 41);
+  background: var(--yellow);
 }
 input[type="range"].important::-webkit-slider-thumb {
-  background: coral;
+  background: var(--red);
 }
 input[type="range"]::-webkit-slider-runnable-track {
   height: 1px;

@@ -61,7 +61,7 @@ export class App extends Component {
       .then(data => data.json())
       .then(list => {
         this.setState({
-          entries: list
+          entries: list.filter(each => each.done === false)
         });
       });
   }

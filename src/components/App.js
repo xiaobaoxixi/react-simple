@@ -93,7 +93,30 @@ export class App extends Component {
           console.log("this entry is now deleted", data);
         });
     }
+    // delete should also update state so that the list shows only what's undone
     // clear all done in API (some of them are not displayed on screen, cuz only fetch the un-done, and hide-done will remove them from state, so can't get id to perform delete on API anymore)
+    fetch("http://5be5595c48c1280013fc3d34.mockapi.io/react-toDoList/")
+      .then(data => data.json())
+      .then(data => {
+        const allEntries = data;
+        console.log(allEntries);
+        allEntries.forEach(checkDone);
+        function checkDone(entry) {
+          const id = entry.id;
+          if (entry.done === true) {
+            fetch(
+              "http://5be5595c48c1280013fc3d34.mockapi.io/react-toDoList/" + id,
+              {
+                method: "delete"
+              }
+            )
+              .then(data => data.json())
+              .then(data => {
+                console.log("delete one from API");
+              });
+          }
+        }
+      });
   };
   render() {
     const sorted = this.state.entries.slice().sort(function(a, b) {

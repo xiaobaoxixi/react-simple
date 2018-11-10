@@ -16,6 +16,9 @@ export class Login extends Component {
       this.setState({
         step: 2
       });
+    } else if (passwordSofar.toString().length > 19) {
+      alert("looks like you need a start over :)");
+      window.location.reload();
     }
   };
 

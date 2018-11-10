@@ -51,8 +51,21 @@ export class AddTask extends Component {
           value={this.state.task}
           placeholder="..."
         />
-        <label>Probably should do it ---> Must do!!!</label>
+        <label>
+          {this.state.importance < 3
+            ? "just a random thought"
+            : this.state.importance < 6
+            ? "probably need to do this"
+            : "MUST DO!!"}
+        </label>
         <input
+          className={
+            this.state.importance < 3
+              ? ""
+              : this.state.importance < 6
+              ? "normal"
+              : "important"
+          }
           type="range"
           id="importance"
           name="importance"

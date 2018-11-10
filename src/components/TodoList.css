@@ -1,3 +1,15 @@
 ul {
   padding: 5%;
+  list-style: none;
+}
+li {
+  background-color: lightgrey;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.done {
+  background-color: #efefef;
+}
+.done *:not(button) {
+  text-decoration: line-through;
 }

@@ -51,13 +51,6 @@ export class AddTask extends Component {
           value={this.state.task}
           placeholder="..."
         />
-        <label>
-          {this.state.importance < 3
-            ? "just a random thought"
-            : this.state.importance < 6
-            ? "probably need to do this"
-            : "MUST DO!!"}
-        </label>
         <input
           className={
             this.state.importance < 3
@@ -74,6 +67,13 @@ export class AddTask extends Component {
           value={this.state.importance}
           onChange={this.setImportance}
         />
+        <label>
+          {this.state.importance < 3
+            ? "just a random thought"
+            : this.state.importance < 6
+            ? "probably need to do this"
+            : "MUST DO!!"}
+        </label>
         <button onClick={this.addToList}>to the cloud</button>
       </form>
     );

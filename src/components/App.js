@@ -14,6 +14,7 @@ export class App extends Component {
     this.addToAPI(newTaskContent);
   };
   addToAPI = newContent => {
+    const uid = newContent.uid;
     // write to mockAPI
     fetch(`http://5be5595c48c1280013fc3d34.mockapi.io/react-toDoList`, {
       method: "post",
@@ -22,12 +23,18 @@ export class App extends Component {
         Accept: "application/json",
         "Content-Type": "application/json"
       }
-    });
+    })
+      .then(data => data.json())
+      .then(data => {
+        const assignedId = data.id;
+        const newEntry = this.state.entries.filter(
+          entry => entry.uid === uid
+        )[0];
+        newEntry.id = assignedId;
+      });
   };
   updateAPI = (newState, uid) => {
-    console.log(newState);
     const updatedEntry = newState.filter(entry => entry.uid === uid);
-    console.log(updatedEntry);
     const id = updatedEntry[0].id;
     if (updatedEntry.length > 0) {
       fetch(`http://5be5595c48c1280013fc3d34.mockapi.io/react-toDoList/${id}`, {
@@ -73,7 +80,20 @@ export class App extends Component {
     });
   };
   deleteAllDone = e => {
-    console.log("detele all done");
+    // clear all local done
+    const allDone = this.state.entries.filter(each => each.done === true);
+    allDone.forEach(deleteFromAPI);
+    function deleteFromAPI(entry) {
+      const id = entry.id;
+      fetch("http://5be5595c48c1280013fc3d34.mockapi.io/react-toDoList/" + id, {
+        method: "delete"
+      })
+        .then(res => res.json())
+        .then(data => {
+          console.log("this entry is now deleted", data);
+        });
+    }
+    // clear all done in API (some of them are not displayed on screen, cuz only fetch the un-done, and hide-done will remove them from state, so can't get id to perform delete on API anymore)
   };
   render() {
     const sorted = this.state.entries.slice().sort(function(a, b) {
@@ -90,8 +110,12 @@ export class App extends Component {
         <h1>Free Up Your Mind</h1>
         <AddTask addNew={this.addNew} />
         <ToDoList entries={sorted} markDone={this.markDone} />
-        <button onClick={this.clearAllDone}>hide the done</button>
-        <button onClick={this.deleteAllDone}>delete the done</button>
+        <button className="half-width" onClick={this.clearAllDone}>
+          hide the done
+        </button>
+        <button className="half-width" onClick={this.deleteAllDone}>
+          delete the done
+        </button>
       </div>
     );
   }

@@ -3,19 +3,18 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-weight: 100;
+  font-size: 19px;
 }
-ul {
-  padding-left: 0;
-  list-style: none;
+h1 {
+  font-size: 40px;
 }
-li {
-  background-color: lightgrey;
-  padding: 10px;
-  margin-bottom: 10px;
-}
-.done {
-  background-color: #efefef;
-}
-.done *:not(button) {
-  text-decoration: line-through;
+button.half-width {
+  display: inline;
+  width: 42.5vw;
+  border: none;
+  margin-left: 5vw;
+  padding: 20px;
+  background: #222;
+  color: white;
 }

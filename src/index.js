@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import Login from "./components/Login";
-import App from "./components/App";
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(<Login />, document.getElementById("root"));

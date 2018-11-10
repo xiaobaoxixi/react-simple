@@ -74,7 +74,7 @@ export class AddTask extends Component {
             ? "probably need to do this"
             : "MUST DO!!"}
         </label>
-        <button onClick={this.addToList}>to the cloud</button>
+        <button onClick={this.addToList}>send to the cloud</button>
       </form>
     );
   }

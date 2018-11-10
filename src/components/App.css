@@ -12,6 +12,7 @@ h1 {
 button.half-width {
   display: inline;
   width: 42.5vw;
+  height: 80px;
   border: none;
   margin-left: 5vw;
   padding: 20px;

@@ -6,7 +6,8 @@ export class Login extends Component {
   state = {
     step: 1,
     username: "",
-    password: []
+    password: [],
+    disabled: true
   };
   componentDidMount() {
     if (localStorage.getItem("username")) {
@@ -56,6 +57,9 @@ export class Login extends Component {
   };
   restartPassword = () => {
     console.log("restart password");
+    this.setState({
+      password: []
+    });
   };
   signInNew = () => {
     console.log("sign in another acount");
@@ -98,6 +102,7 @@ export class Login extends Component {
                   ? ""
                   : "Welcome back " + this.state.username
               }
+              disabled={this.state.disabled}
             />
             <div className="password">
               <div className="dot" onClick={this.trackPassword} data-code="1">

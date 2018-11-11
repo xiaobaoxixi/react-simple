@@ -7,7 +7,8 @@ export class Login extends Component {
     step: 1,
     username: "",
     password: [],
-    disabled: true
+    disabled: true,
+    type: ""
   };
   componentDidMount() {
     if (localStorage.getItem("username")) {
@@ -63,24 +64,41 @@ export class Login extends Component {
   };
   signInNew = () => {
     console.log("sign in another acount");
+    this.setState({
+      username: "",
+      disabled: false,
+      type: "sign-in-new"
+    });
   };
   signUp = () => {
+    console.log("sign up a new acount");
+    this.setState({
+      username: "",
+      disabled: false,
+      type: "sign-up"
+    });
+  };
+  signUpToAPI = () => {
     const userInfo = {
       username: this.state.username,
       password: this.state.password
     };
-    fetch(`https://5be5595c48c1280013fc3d34.mockapi.io/users`, {
-      method: "post",
-      body: JSON.stringify(userInfo),
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      }
-    })
-      .then(data => data.json())
-      .then(data => {
-        console.log("signed up");
-      });
+    if (userInfo.username !== "" && userInfo.password.length > 0) {
+      fetch(`https://5be5595c48c1280013fc3d34.mockapi.io/users`, {
+        method: "post",
+        body: JSON.stringify(userInfo),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        }
+      })
+        .then(data => data.json())
+        .then(data => {
+          console.log("signed up");
+        });
+    } else {
+      alert("username and/or password can't be empty");
+    }
   };
   render() {
     const currentStep = this.state.step;
@@ -95,13 +113,15 @@ export class Login extends Component {
                   : "user-name-input big"
               }
               type="text"
-              placeholder="user name"
-              onChange={this.checkUser}
-              value={
-                this.state.username === ""
-                  ? ""
-                  : "Welcome back " + this.state.username
+              placeholder={
+                this.state.type === "sign-up"
+                  ? "pick a user name"
+                  : this.state.type === "sign-in-new"
+                  ? "user name"
+                  : ""
               }
+              onChange={this.checkUser}
+              value={this.state.username === "" ? "" : this.state.username}
               disabled={this.state.disabled}
             />
             <div className="password">
@@ -143,9 +163,26 @@ export class Login extends Component {
               </div>
             </div>
             <button onClick={this.signInNew}>
-              sign IN with another acount
+              {this.state.type === "sign-up"
+                ? "sign IN with your acount"
+                : "sign IN with another acount"}
             </button>
-            <button onClick={this.signUp}>sign UP new acount</button>
+            <button
+              className={this.state.type === "sign-up" ? "hide" : ""}
+              onClick={this.signUp}
+            >
+              sign UP new acount
+            </button>
+            <button
+              className={
+                this.state.type === "sign-up"
+                  ? "sigh-up-button "
+                  : "sigh-up-button hide"
+              }
+              onClick={this.signUpToAPI}
+            >
+              sign UP
+            </button>
           </div>
         );
       case 2:

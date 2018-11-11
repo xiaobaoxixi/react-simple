@@ -43,3 +43,10 @@ input.user-name-input.big {
 .dot:hover > p {
   color: white;
 }
+.sigh-up-button {
+  background-color: black;
+  color: white;
+}
+.hide {
+  display: none;
+}

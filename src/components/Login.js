@@ -7,7 +7,6 @@ export class Login extends Component {
     step: 1,
     username: "",
     password: [],
-    disabled: true,
     type: ""
   };
   componentDidMount() {
@@ -60,7 +59,6 @@ export class Login extends Component {
     console.log("sign in another acount");
     this.setState({
       username: "",
-      disabled: false,
       type: "sign-in-new"
     });
   };
@@ -68,7 +66,6 @@ export class Login extends Component {
     console.log("sign up a new acount");
     this.setState({
       username: "",
-      disabled: false,
       type: "sign-up"
     });
   };
@@ -140,7 +137,6 @@ export class Login extends Component {
               }
               onChange={this.checkUser}
               value={this.state.username === "" ? "" : this.state.username}
-              disabled={this.state.disabled}
             />
             <div className="password">
               <div className="dot" onClick={this.trackPassword} data-code="1">

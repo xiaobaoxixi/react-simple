@@ -16,7 +16,7 @@ export class App extends Component {
   addToAPI = newContent => {
     const uid = newContent.uid;
     // write to mockAPI
-    fetch(`http://5be5595c48c1280013fc3d34.mockapi.io/react-toDoList`, {
+    fetch(`https://5be5595c48c1280013fc3d34.mockapi.io/react-toDoList`, {
       method: "post",
       body: JSON.stringify(newContent),
       headers: {
@@ -37,13 +37,16 @@ export class App extends Component {
     const updatedEntry = newState.filter(entry => entry.uid === uid);
     const id = updatedEntry[0].id;
     if (updatedEntry.length > 0) {
-      fetch(`http://5be5595c48c1280013fc3d34.mockapi.io/react-toDoList/${id}`, {
-        method: "put",
-        headers: {
-          "Content-Type": "application/json; charset=utf-8"
-        },
-        body: JSON.stringify(updatedEntry[0])
-      });
+      fetch(
+        `https://5be5595c48c1280013fc3d34.mockapi.io/react-toDoList/${id}`,
+        {
+          method: "put",
+          headers: {
+            "Content-Type": "application/json; charset=utf-8"
+          },
+          body: JSON.stringify(updatedEntry[0])
+        }
+      );
     }
   };
 
@@ -64,7 +67,7 @@ export class App extends Component {
     this.updateAPI(newState, uid);
   };
   componentDidMount() {
-    fetch("http://5be5595c48c1280013fc3d34.mockapi.io/react-toDoList")
+    fetch("https://5be5595c48c1280013fc3d34.mockapi.io/react-toDoList")
       .then(data => data.json())
       .then(list => {
         this.setState({
@@ -85,16 +88,19 @@ export class App extends Component {
     allDone.forEach(deleteFromAPI);
     function deleteFromAPI(entry) {
       const id = entry.id;
-      fetch("http://5be5595c48c1280013fc3d34.mockapi.io/react-toDoList/" + id, {
-        method: "delete"
-      })
+      fetch(
+        "https://5be5595c48c1280013fc3d34.mockapi.io/react-toDoList/" + id,
+        {
+          method: "delete"
+        }
+      )
         .then(res => res.json())
         .then(data => {
           console.log("this entry is now deleted", data);
         });
     }
     // clear all done in API (some of them are not displayed on screen, cuz only fetch the un-done, and hide-done will remove them from state, so can't get id to perform delete on API anymore)
-    fetch("http://5be5595c48c1280013fc3d34.mockapi.io/react-toDoList/")
+    fetch("https://5be5595c48c1280013fc3d34.mockapi.io/react-toDoList/")
       .then(data => data.json())
       .then(data => {
         const allEntries = data;
@@ -103,7 +109,8 @@ export class App extends Component {
           const id = entry.id;
           if (entry.done === true) {
             fetch(
-              "http://5be5595c48c1280013fc3d34.mockapi.io/react-toDoList/" + id,
+              "https://5be5595c48c1280013fc3d34.mockapi.io/react-toDoList/" +
+                id,
               {
                 method: "delete"
               }

@@ -121,7 +121,7 @@ export class Login extends Component {
   render() {
     const currentStep = this.state.step;
     switch (currentStep) {
-      case 1:
+      default:
         return (
           <div>
             <input

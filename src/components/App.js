@@ -8,6 +8,7 @@ export class App extends Component {
     entries: []
   };
   addNew = newTaskContent => {
+    console.log(newTaskContent);
     this.setState({
       entries: this.state.entries.concat(newTaskContent)
     });
@@ -71,7 +72,7 @@ export class App extends Component {
       .then(data => data.json())
       .then(list => {
         this.setState({
-          entries: list /*.filter(each => each.done === false)*/
+          entries: list.filter(each => each.user === this.props.user)
         });
       });
   }
@@ -147,7 +148,7 @@ export class App extends Component {
     return (
       <div>
         <h1>Free Up Your Mind</h1>
-        <AddTask addNew={this.addNew} />
+        <AddTask addNew={this.addNew} user={this.props.user} />
         <ToDoList entries={newOrder} markDone={this.markDone} />
         <button className="half-width" onClick={this.clearAllDone}>
           hide <br />

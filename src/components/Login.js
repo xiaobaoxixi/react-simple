@@ -189,7 +189,7 @@ export class Login extends Component {
           </div>
         );
       case 2:
-        return <App />;
+        return <App user={this.state.username} />;
     }
   }
 }

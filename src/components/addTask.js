@@ -5,6 +5,7 @@ import uuidv4 from "uuid/v4";
 
 export class AddTask extends Component {
   state = {
+    user: this.props.user,
     id: "",
     task: "",
     importance: 1,
@@ -27,6 +28,7 @@ export class AddTask extends Component {
     e.preventDefault();
     if (this.state.task !== "") {
       this.props.addNew({
+        user: this.state.user,
         uid: uuidv4(),
         task: this.state.task,
         importance: this.state.importance,

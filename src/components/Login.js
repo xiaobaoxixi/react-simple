@@ -65,7 +65,7 @@ export class Login extends Component {
           this.setState({
             password: []
           });
-        } else if (!matchingUser) {
+        } else if (!matchingUser && this.state.type === "sign-in-new") {
           alert("username doesn't exist");
         }
       });

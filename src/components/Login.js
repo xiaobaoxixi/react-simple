@@ -25,6 +25,10 @@ export class Login extends Component {
     });
   };
   trackPassword = e => {
+    e.target.className = "dot clicked";
+    e.target.addEventListener("animationend", e => {
+      e.target.className = "dot";
+    });
     let passwordSofar = this.state.password;
     passwordSofar.push(e.target.dataset.code);
     fetch("https://5be5595c48c1280013fc3d34.mockapi.io/users")
@@ -46,6 +50,14 @@ export class Login extends Component {
           this.setState({
             step: 2
           });
+        } else if (
+          matchingUser &&
+          matchingUser.password.toString().indexOf(passwordSofar.toString()) < 0
+        ) {
+          alert("seems like you forgot the password. start over");
+          this.state.password = [];
+        } else if (!matchingUser) {
+          alert("username doesn't exist");
         }
       });
   };
@@ -121,11 +133,13 @@ export class Login extends Component {
       default:
         return (
           <div>
+            <label for="username">{this.state.type === "" ? "Hi" : ""}</label>
             <input
+              id="username"
               className={
-                this.state.username === ""
-                  ? "user-name-input"
-                  : "user-name-input big"
+                this.state.type === ""
+                  ? "user-name-input big"
+                  : "user-name-input"
               }
               type="text"
               placeholder={
@@ -190,8 +204,8 @@ export class Login extends Component {
             <button
               className={
                 this.state.type === "sign-up"
-                  ? "sigh-up-button "
-                  : "sigh-up-button hide"
+                  ? "sign-up-button "
+                  : "sign-up-button hide"
               }
               onClick={this.signUpToAPI}
             >

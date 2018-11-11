@@ -1,17 +1,26 @@
+label[for="username"] {
+  position: absolute;
+  left: 15vw;
+  top: 10vh;
+  font-size: 24px;
+  color: black;
+  margin: 0;
+}
 input.user-name-input {
   width: 70vw;
-  margin-left: 15vw;
-  margin-top: 10vh;
-  line-height: 50px;
+  margin: 10vh 15vw 30px 15vw;
+  line-height: 30px;
   border: none;
   border-bottom: 1px solid lightgray;
 }
 input.user-name-input.big {
+  width: calc(70vw - 10px);
   border-bottom: none;
+  margin-left: calc(15vw + 30px);
   font-size: 24px;
 }
 .password {
-  margin: 30px 15vw 30px;
+  margin: 0 15vw 30px;
   display: grid;
   grid-template-columns: repeat(3, 20vw);
   grid-template-rows: repeat(4, 20vw);
@@ -37,13 +46,18 @@ input.user-name-input.big {
   text-align: center;
   pointer-events: none;
 }
-.dot:hover {
-  background-color: black;
+.dot.clicked {
+  animation: clicked 0.1s ease-in;
 }
-.dot:hover > p {
+@keyframes clicked {
+  10% {
+    background-color: black;
+  }
+}
+.dot.clicked > p {
   color: white;
 }
-.sigh-up-button {
+.sign-up-button {
   background-color: black;
   color: white;
 }

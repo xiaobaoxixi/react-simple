@@ -12,6 +12,7 @@ input.user-name-input {
   line-height: 30px;
   border: none;
   border-bottom: 1px solid lightgray;
+  color: black;
 }
 input.user-name-input.big {
   width: calc(70vw - 10px);

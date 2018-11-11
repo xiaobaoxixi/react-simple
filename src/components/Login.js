@@ -7,12 +7,14 @@ export class Login extends Component {
     step: 1,
     username: "",
     password: [],
-    type: ""
+    type: "",
+    localStorage: false
   };
   componentDidMount() {
     if (localStorage.getItem("username")) {
       this.setState({
-        username: localStorage.getItem("username")
+        username: localStorage.getItem("username"),
+        localStorage: true
       });
     } else {
       console.log("no local user registered");
@@ -46,16 +48,23 @@ export class Login extends Component {
             username: matchingUser.username
           });
           localStorage.setItem("username", this.state.username);
+          this.setState({
+            localStorage: true
+          });
           console.log("user:" + localStorage.getItem("username"));
           this.setState({
             step: 2
           });
         } else if (
           matchingUser &&
-          matchingUser.password.toString().indexOf(passwordSofar.toString()) < 0
+          matchingUser.password.toString().indexOf(passwordSofar.toString()) <
+            0 &&
+          this.state.type === "sign-in-new"
         ) {
           alert("seems like you forgot the password. start over");
-          this.state.password = [];
+          this.setState({
+            password: []
+          });
         } else if (!matchingUser) {
           alert("username doesn't exist");
         }
@@ -115,6 +124,9 @@ export class Login extends Component {
                 step: 2
               });
               localStorage.setItem("username", userInfo.username);
+              this.setState({
+                localStorage: true
+              });
             });
         } else if (
           userInfo.username !== "" &&
@@ -133,11 +145,13 @@ export class Login extends Component {
       default:
         return (
           <div>
-            <label for="username">{this.state.type === "" ? "Hi" : ""}</label>
+            <label htmlFor="username">
+              {this.state.type === "" ? "Hi" : ""}
+            </label>
             <input
               id="username"
               className={
-                this.state.type === ""
+                this.state.localStorage && this.state.type === ""
                   ? "user-name-input big"
                   : "user-name-input"
               }
@@ -147,10 +161,17 @@ export class Login extends Component {
                   ? "pick a user name"
                   : this.state.type === "sign-in-new"
                   ? "user name"
+                  : this.state.localStorage === false
+                  ? "user name"
                   : ""
               }
               onChange={this.checkUser}
               value={this.state.username === "" ? "" : this.state.username}
+              disabled={
+                (this.state.localStorage && this.state.type === "") === true
+                  ? "disabled"
+                  : false
+              }
             />
             <div className="password">
               <div className="dot" onClick={this.trackPassword} data-code="1">

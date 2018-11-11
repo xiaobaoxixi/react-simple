@@ -155,7 +155,7 @@ export class Login extends Component {
               <div className="dot empty">
                 <p />
               </div>
-              <div className="dot" onClick={this.trackPassword} data-code="9">
+              <div className="dot" onClick={this.trackPassword} data-code="0">
                 <p>0</p>
               </div>
               <div className="dot clear" onClick={this.restartPassword}>

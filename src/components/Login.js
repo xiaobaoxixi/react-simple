@@ -8,27 +8,97 @@ export class Login extends Component {
     username: "",
     password: []
   };
+  componentDidMount() {
+    if (localStorage.getItem("username")) {
+      this.setState({
+        username: localStorage.getItem("username")
+      });
+    } else {
+      console.log("no local user registered");
+    }
+  }
+  checkUser = e => {
+    let typed = e.target.value;
+    this.setState({
+      username: typed
+    });
+  };
   trackPassword = e => {
-    console.log(e.target.dataset.code);
     let passwordSofar = this.state.password;
     passwordSofar.push(e.target.dataset.code);
-    if (passwordSofar.toString() === "5,5,7,1") {
-      console.log("passed");
-      this.setState({
-        step: 2
+    fetch("https://5be5595c48c1280013fc3d34.mockapi.io/users")
+      .then(data => data.json())
+      .then(users => {
+        const matchingUser = users.filter(
+          u => u.username === this.state.username
+        )[0];
+        if (
+          matchingUser &&
+          matchingUser.password.toString() === passwordSofar.toString()
+        ) {
+          // keep username in local storage
+          this.setState({
+            username: matchingUser.username
+          });
+          localStorage.setItem("username", this.state.username);
+          console.log("user:" + localStorage.getItem("user"));
+          this.setState({
+            step: 2
+          });
+        }
       });
+
+    if (passwordSofar.toString() === "5,5,7,1") {
     } else if (passwordSofar.toString().length > 19) {
       alert("looks like you need a start over :)");
       window.location.reload();
     }
   };
-
+  restartPassword = () => {
+    console.log("restart password");
+  };
+  signInNew = () => {
+    console.log("sign in another acount");
+  };
+  signUp = () => {
+    const userInfo = {
+      username: this.state.username,
+      password: this.state.password
+    };
+    fetch(`https://5be5595c48c1280013fc3d34.mockapi.io/users`, {
+      method: "post",
+      body: JSON.stringify(userInfo),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    })
+      .then(data => data.json())
+      .then(data => {
+        console.log("signed up");
+      });
+  };
   render() {
     const currentStep = this.state.step;
     switch (currentStep) {
       case 1:
         return (
           <div>
+            <input
+              className={
+                this.state.username === ""
+                  ? "user-name-input"
+                  : "user-name-input big"
+              }
+              type="text"
+              placeholder="user name"
+              onChange={this.checkUser}
+              value={
+                this.state.username === ""
+                  ? ""
+                  : "Welcome back " + this.state.username
+              }
+            />
             <div className="password">
               <div className="dot" onClick={this.trackPassword} data-code="1">
                 <p>1</p>
@@ -57,7 +127,20 @@ export class Login extends Component {
               <div className="dot" onClick={this.trackPassword} data-code="9">
                 <p>9</p>
               </div>
+              <div className="dot empty">
+                <p />
+              </div>
+              <div className="dot" onClick={this.trackPassword} data-code="9">
+                <p>0</p>
+              </div>
+              <div className="dot clear" onClick={this.restartPassword}>
+                <p>x</p>
+              </div>
             </div>
+            <button onClick={this.signInNew}>
+              sign IN with another acount
+            </button>
+            <button onClick={this.signUp}>sign UP new acount</button>
           </div>
         );
       case 2:

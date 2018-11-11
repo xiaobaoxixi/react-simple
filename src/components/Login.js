@@ -95,6 +95,9 @@ export class Login extends Component {
         .then(data => data.json())
         .then(data => {
           console.log("signed up");
+          this.setState({
+            step: 2
+          });
         });
     } else {
       alert("username and/or password can't be empty");

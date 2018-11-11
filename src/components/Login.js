@@ -43,18 +43,12 @@ export class Login extends Component {
             username: matchingUser.username
           });
           localStorage.setItem("username", this.state.username);
-          console.log("user:" + localStorage.getItem("user"));
+          console.log("user:" + localStorage.getItem("username"));
           this.setState({
             step: 2
           });
         }
       });
-
-    if (passwordSofar.toString() === "5,5,7,1") {
-    } else if (passwordSofar.toString().length > 19) {
-      alert("looks like you need a start over :)");
-      window.location.reload();
-    }
   };
   restartPassword = () => {
     console.log("restart password");
@@ -83,25 +77,46 @@ export class Login extends Component {
       username: this.state.username,
       password: this.state.password
     };
-    if (userInfo.username !== "" && userInfo.password.length > 0) {
-      fetch(`https://5be5595c48c1280013fc3d34.mockapi.io/users`, {
-        method: "post",
-        body: JSON.stringify(userInfo),
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        }
-      })
-        .then(data => data.json())
-        .then(data => {
-          console.log("signed up");
-          this.setState({
-            step: 2
-          });
+    // check username already exist in API
+    const existingUserS = [];
+    fetch(`https://5be5595c48c1280013fc3d34.mockapi.io/users`)
+      .then(data => data.json())
+      .then(users => {
+        users.forEach(user => {
+          existingUserS.push(user.username);
         });
-    } else {
-      alert("username and/or password can't be empty");
-    }
+
+        if (
+          userInfo.username !== "" &&
+          userInfo.password.length > 0 &&
+          existingUserS.indexOf(userInfo.username) < 0
+        ) {
+          fetch(`https://5be5595c48c1280013fc3d34.mockapi.io/users`, {
+            method: "post",
+            body: JSON.stringify(userInfo),
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json"
+            }
+          })
+            .then(data => data.json())
+            .then(data => {
+              console.log("signed up");
+              this.setState({
+                step: 2
+              });
+              localStorage.setItem("username", userInfo.username);
+            });
+        } else if (
+          userInfo.username !== "" &&
+          userInfo.password.length > 0 &&
+          existingUserS.indexOf(userInfo.username) > -1
+        ) {
+          alert("username already taken, pick another one");
+        } else {
+          alert("username and/or password can't be empty");
+        }
+      });
   };
   render() {
     const currentStep = this.state.step;

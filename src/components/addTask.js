@@ -71,8 +71,8 @@ export class AddTask extends Component {
           {this.state.importance < 3
             ? "just a random thought"
             : this.state.importance < 6
-            ? "probably need to do this"
-            : "MUST DO!!"}
+            ? "probably should remember this"
+            : "IMPORTANT !!"}
         </label>
         <button onClick={this.addToList}>send to the cloud</button>
       </form>

@@ -13,6 +13,7 @@ input.user-name-input {
   border: none;
   border-bottom: 1px solid lightgray;
   color: black;
+  background-color: transparent;
 }
 input.user-name-input.big {
   width: calc(70vw - 10px);

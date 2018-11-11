@@ -59,7 +59,7 @@ export class Login extends Component {
           matchingUser &&
           matchingUser.password.toString().indexOf(passwordSofar.toString()) <
             0 &&
-          this.state.type === "sign-in-new"
+          (this.state.type === "sign-in-new" || this.state.type === "")
         ) {
           alert("seems like you forgot the password. start over");
           this.setState({
